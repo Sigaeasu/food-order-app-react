@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import classes from './Checkout.module.css';
 
 const isEmpty = value => value.trim() === ''
-const isNotFiveChars = value => value.trim().length !== 5
+const isFiveChars = value => value.trim().length === 5
 
 const Checkout = (props) => {
     const [formInputValidity, setFormInputValidity] = useState({
@@ -29,7 +29,7 @@ const Checkout = (props) => {
         const enteredNameIsValid = !isEmpty(enteredName)
         const enteredStreetIsValid = !isEmpty(enteredStreet)
         const enteredCityIsValid = !isEmpty(enteredCity)
-        const enteredPostalIsValid = !isNotFiveChars(enteredPostal)
+        const enteredPostalIsValid = isFiveChars(enteredPostal)
 
         setFormInputValidity({
             name: enteredNameIsValid,
@@ -45,24 +45,24 @@ const Checkout = (props) => {
             enteredCityIsValid
         
         if (formIsValid) {
-
+            return
         }
     };
 
     const nameControlClasses = `${classes.control} ${
-        formInputValidity.name ? '' : 'classes.invalid'
+        formInputValidity.name ? '' : classes.invalid
     }`
     
     const streetControlClasses = `${classes.control} ${
-        formInputValidity.street ? '' : 'classes.invalid'
+        formInputValidity.street ? '' : classes.invalid
     }`
 
     const postalControlClasses = `${classes.control} ${
-        formInputValidity.postalCode ? '' : 'classes.invalid'
+        formInputValidity.postalCode ? '' : classes.invalid
     }`
 
     const cityControlClasses = `${classes.control} ${
-        formInputValidity.city ? '' : 'classes.invalid'
+        formInputValidity.city ? '' : classes.invalid
     }`
 
     return (
@@ -80,7 +80,7 @@ const Checkout = (props) => {
             <div className={postalControlClasses}>
                 <label htmlFor='postal'>Postal Code</label>
                 <input type='text' id='postal' ref={postalInputRef} />
-                {!formInputValidity.postal && <p>Please enter a valid postal!</p>}
+                {!formInputValidity.postalCode && <p>Please enter a valid postal!</p>}
             </div>
             <div className={cityControlClasses}>
                 <label htmlFor='city'>City</label>
